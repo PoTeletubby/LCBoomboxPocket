@@ -1,0 +1,25 @@
+using HarmonyLib;
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace LC_Boombox_Mod.Patches
+{
+    [HarmonyPatch(typeof(BoomboxItem))]
+    internal class BoomboxItemPatch
+    {
+
+        [HarmonyPatch("PocketItem")]
+        [HarmonyPrefix]
+        public static bool PocketItem(ref BoomboxItem __instance)
+        {
+            GrabbableObject boombox = __instance.GetComponent<GrabbableObject>();
+            boombox.EnableItemMeshes(enable: false);
+            return false;
+        }
+    }
+}
